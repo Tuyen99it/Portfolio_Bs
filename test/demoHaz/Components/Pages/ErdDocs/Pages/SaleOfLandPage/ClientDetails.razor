@@ -1,0 +1,37 @@
+<div  class="border border-2 rounded-3 p-b-3">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <h6 class=" m-3">Client Detail</h6>
+    <hr/>
+    <div class="container m-0 p-0">
+        <div class="d-flex flex-row justify-content-between ">
+            <div class="col m-3">
+                <label class="form-label">Revenue NSW Client Name</label>
+                <InputText   disabled="true"  class="form-control" @bind-Value="@model.ClientName" aria-disabled="false"/>
+            </div>
+             <div class="col  m-3">
+                <label class="form-label">Revenue NSW Client Name</label>
+                <InputText disabled="true" class="form-control" @bind-Value="@model.ClientNumber" aria-disabled="true"/>
+            </div>
+             <div class="col m-3">
+                <label class="form-label">Revenue NSW Client Number<span class="text-danger">*</span></label>
+                <InputText  class="form-control" @bind-Value="@model.ClientReference" />
+            </div>
+             <div class="col  m-3">
+                <label class="form-label">Enquiry Id</label>
+                <InputText  class="form-control" @bind-Value="@model.EnquiryId" />
+            </div>
+            
+        </div>
+    </div>
+</div>
+@code{
+    public ClientDetailModel model{get;set;}=new();
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        model.ClientName="HAZLETT TEST CLIENT WEEKLY";
+        model.ClientNumber="187352176";
+
+    }
+}

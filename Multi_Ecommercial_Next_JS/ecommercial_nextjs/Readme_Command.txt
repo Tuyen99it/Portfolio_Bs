@@ -23,3 +23,5 @@ bun.block: block for bun package mamager
 + install shadcn: bunx --bun shadcn@2.4.0-canary.17 init
 + check file: utils.ts → cn funtion
 - run project: bun run dev
+- add componets to project: bunx --bun shadcn@2.4.0-canary add --all
+- 

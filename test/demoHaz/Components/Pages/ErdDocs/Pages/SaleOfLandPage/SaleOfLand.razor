@@ -1,0 +1,50 @@
+@using  demoHaz.Components.Pages.ErdDocs.Components
+<StepperProgressBar Title="@Title"
+         Steppers="Steps">
+    <ChildContent Context="step">
+       @switch (step)
+        {
+            case 0:
+                {
+                    <div>
+                        <ClientDetails/>
+                    </div>
+                    break;
+                }
+            case 1:
+                {
+                    <div>
+                        <Exemption/>
+                    </div>
+                    break;
+                }
+            case 2:
+                {
+                    <div>
+                        <h5>Duty Calculation</h5>
+                        <p>Content for Duty Calculation step goes here.</p>
+                    </div>
+                    break;
+                }
+            case 3:
+                {
+                    <div>
+                        <h5>Vendor Information</h5>
+                        <p>Content for Vendor Information step goes here.</p>
+                    </div>
+                    break;
+                }
+        }   
+    </ChildContent>
+</StepperProgressBar>
+
+@code {
+    List<StepperProgressBar.Stepper> Steps = new()
+    {
+        new() { Id = 1, Name = "Client" },
+        new() { Id = 2, Name = "Exemption" },
+        new() { Id = 3, Name = "Duty" },
+        new() { Id = 4, Name = "Vendor" }
+    };
+    public string Title { get; set; } = "Sale of Land Document Stamping Process";
+}

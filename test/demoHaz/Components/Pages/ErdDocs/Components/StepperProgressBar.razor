@@ -1,0 +1,122 @@
+<div class="stepper-container">
+    <h5 class="fw-bolder">@Title</h5>
+
+    <!-- Progress bar -->
+    <div class="stepper-progress-bar">
+        <div class="stepper-progress-fill"
+             style="width:@_progress.Percentage%"></div>
+    </div>
+
+    <!-- Steps -->
+    <div class="steppers-progress">
+        @foreach (var step in _progress.Steppers)
+        {
+            var index = _progress.Steppers.IndexOf(step);
+            var status = index < _progress.CurrentStep
+                ? "completed"
+                : index == _progress.CurrentStep
+                    ? "active"
+                    : "";
+
+            <div class="stepper-item @status">
+                <div class="stepper-point">
+                    @(index + 1)
+                </div>
+                <span class="stepper-label">@step.Name</span>
+
+                @if (index < _progress.Steppers.Count - 1)
+                {
+                    <div class="stepper-line"></div>
+                }
+            </div>
+        }
+    </div>
+
+    <!-- Content -->
+    <div class="stepper-content">
+        @if (ChildContent != null)
+        {
+            @ChildContent(_progress.CurrentStep)
+        }
+    </div>
+
+    <!-- Actions -->
+    <div class="stepper-actions">
+        <button class="btn btn-secondary"
+                disabled="@(_progress.CurrentStep == 0)"
+                @onclick="Previous">
+            Previous
+        </button>
+
+        <button class="btn btn-primary" type="submit"
+                disabled="@(_progress.CurrentStep == _progress.Steppers.Count - 1)"
+                @onclick="Next">
+            Next
+        </button>
+    </div>
+</div>
+@code {
+    private StepperProgress _progress = default!;
+
+    protected override void OnInitialized()
+    {
+        _progress = new StepperProgress(Steppers);
+    }
+
+    [Parameter]
+    public List<Stepper> Steppers { get; set; } = new();
+
+    [Parameter]
+    public RenderFragment<int>? ChildContent { get; set; }
+
+    [Parameter]
+    public string Title { get; set; } = string.Empty;
+
+    private void Next()
+    {
+        if (_progress.CurrentStep < _progress.Steppers.Count - 1)
+        {
+            _progress.CurrentStep++;
+            _progress.CalculatePercentage();
+        }
+    }
+
+    private void Previous()
+    {
+        if (_progress.CurrentStep > 0)
+        {
+            _progress.CurrentStep--;
+            _progress.CalculatePercentage();
+        }
+    }
+
+    public class StepperProgress
+    {
+        public List<Stepper> Steppers { get; }
+        public int CurrentStep { get; set; }
+        public int Percentage { get; private set; }
+
+        public StepperProgress(List<Stepper> steppers)
+        {
+            Steppers = steppers;
+            CalculatePercentage();
+        }
+
+        public void CalculatePercentage()
+        {
+            if (Steppers.Count <= 1)
+            {
+                Percentage = 0;
+                return;
+            }
+
+            Percentage = (int)((double)CurrentStep / (Steppers.Count - 1) * 100);
+        }
+    }
+
+    public class Stepper
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+    }
+}

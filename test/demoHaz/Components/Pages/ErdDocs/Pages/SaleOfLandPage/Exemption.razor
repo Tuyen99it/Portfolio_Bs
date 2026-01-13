@@ -1,0 +1,43 @@
+<div class="border border-2 rounded-3 p-b-3">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <h6 class=" m-3">Exemption </h6>
+    <hr />
+    <div class="container m-0 p-0">
+        @foreach (var item in Selected){
+            <div class="form-checkbox">
+                <InputCheckbox @bind-Value="@item.Exemption"/>
+            <label class="form-label">@item.Name</label>
+            </div>
+        }
+    </div>
+</div>
+@code {
+    public class Option
+    {
+        public bool Exemption { get; set; } = false;
+        public string Name { get; set; } = string.Empty;
+        public string Value { get; set; } = string.Empty;
+    }   public ClientDetailModel model { get; set; } = new();
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Selected.Add(new Option { Name = "Not Selected", Value = "" });
+        Selected.Add(new Option { Name = "Not Selected", Value = "" });
+        Selected.Add(new Option { Name = "Not Selected", Value = "" });
+
+        Selected.Add(new Option { Name = "Not Selected", Value = "" });
+        Selected.Add(new Option { Name = "Not Selected", Value = "" });
+        Selected.Add(new Option { Name = "Not Selected", Value = "" });
+        Selected.Add(new Option { Name = "Not Selected", Value = "" });
+        Selected.Add(new Option { Name = "Not Selected", Value = "" });
+        Selected.Add(new Option { Name = "Not Selected", Value = "" });
+        Selected.Add(new Option { Name = "Not Selected", Value = "" });
+        Selected.Add(new Option { Name = "Not Selected", Value = "" });
+        Selected.Add(new Option { Name = "Not Selected", Value = "" });
+
+
+    }
+    public List<Option> Selected { get; set; } = new();
+
+}

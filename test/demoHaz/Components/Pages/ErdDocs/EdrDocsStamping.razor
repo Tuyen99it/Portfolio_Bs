@@ -1,0 +1,72 @@
+﻿@page "/edrdocsstamping"
+@using demoHaz.Components.Pages.ErdDocs.Models
+@using demoHaz.Components.Pages.ErdDocs.Pages
+@using demoHaz.Components.Pages.ErdDocs.Pages.SaleOfLandPage
+@rendermode InteractiveServer
+
+<PageTitle>Edr document Stamping</PageTitle>
+
+<div>
+    <EditForm Model="Model" class="d-flex flex-column gap-3">
+        <div class="p-3 bg-white rounded-3">
+            <label class="form-label">Select Doctype here:</label>
+            <InputSelect class="form-select" @bind-Value="Model.Id">
+                @foreach (var doc in Doctypes)
+                {
+                    <option value="@doc.Id">@doc.Name</option>
+                }
+            </InputSelect>
+        </div>
+    
+    @switch (Model.Id)
+    {
+        case "0":
+            {
+                <div class="p-3 bg-white rounded-3">Please select doctype</div>
+                break;
+            }
+        case "1":
+            {
+                var Descriptions = Doctypes.FirstOrDefault(d => d.Id == Model.Id)?.Description.Split(Environment.NewLine);
+                <div class="p-3 bg-white rounded-3">
+                    @foreach (var desc in Descriptions)
+                    {
+                        <p class="p-0 m-0">@desc</p>
+                    }
+                </div>
+                <div class="p-3 bg-white rounded-3">
+                    <SaleOfLand />
+                </div>
+                break;
+            }
+    }
+
+
+</EditForm>
+
+</div>
+
+@code {
+    public DocTypeForm Model { get; set; } = new();
+    public class DocTypeForm
+    {
+        public string Id { get; set; } = "0";
+
+    }
+    public List<DoctypeModel> Doctypes { get; set; } = new List<DoctypeModel>();
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Doctypes.Add(new DoctypeModel() { Id = "0", Name = "Please select Doctype", Description = "" });
+        Doctypes.Add(new DoctypeModel()
+        {
+            Id = "1",
+            Name = "1-Aggreement for sale of land",
+            Description = @"An agreement for sale of land. May be stamped together with transfer in conformity, or separately.
+Exemption types 87R, 87S, 87V execution date valid for execution <= 30-June-2012
+Exemption Type s67 replaced by s104B Exemption Effective Date >= 11-04-2012
+ELNO Lodgement from Effective Date >= 4 Jan 2014
+Valuer details required when parties are related."
+        });
+    }
+}

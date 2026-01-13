@@ -1,0 +1,69 @@
+.stepper-container {
+    padding: 16px;
+}
+
+.steppers-progress {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.stepper-item {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.stepper-point {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    z-index: 2;
+}
+
+.stepper-item.active .stepper-point {
+    border-color: #0d6efd;
+    background: #0d6efd;
+    color: white;
+}
+
+.stepper-item.completed .stepper-point {
+    border-color: #198754;
+    background: #198754;
+    color: white;
+}
+
+.stepper-line {
+    width: 60px;
+    height: 2px;
+    background: #ccc;
+    margin: 0 8px;
+}
+
+.stepper-label {
+    margin-left: 8px;
+    margin-right: 16px;
+}
+
+.stepper-progress-bar {
+    height: 4px;
+    background: #e9ecef;
+    margin-bottom: 16px;
+}
+
+.stepper-progress-fill {
+    height: 100%;
+    background: #0d6efd;
+    transition: width 0.3s ease;
+}
+
+.stepper-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}

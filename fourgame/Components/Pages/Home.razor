@@ -1,0 +1,9 @@
+﻿@page "/"
+@*
+    -Onclick được sử dụng để sử lý event. Nhưng để sử lý sự kiện UI, Blazor component cần được xây dựng sử dụng chế độ " tương tác render". Mặc định, chế độ interactive render được render tĩnh bởi server. 
+    - InteractiveServer sử lý UI từ server thông qua kết nối socket với trình duyệt
+*@
+<Board @rendermode="InteractiveServer"
+     BoardColor="System.Drawing.Color.Black"
+     Player1Color="System.Drawing.Color.Green"
+     Player2Color="System.Drawing.Color.Purple" />
